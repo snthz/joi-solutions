@@ -1,0 +1,16 @@
+{
+  "name": "Joi Solutions",
+  "short_name": "JoiSolutions",
+  "description": "Tecnología innovadora que conecta a las personas para simplificar la vida, con alegría.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#20396F",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

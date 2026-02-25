@@ -5,98 +5,116 @@ const timelineSteps = [
     icon: "fas fa-shield-alt",
     description:
       "Protegemos transacciones de usuarios y comercios con tecnología segura y transparente.",
+    date: "01",
+    highlight: true,
   },
   {
     title: "Cashless",
     icon: "fas fa-money-bill-wave",
     description:
       "Facilitamos pagos digitales para reducir el uso de efectivo y mejorar el control.",
+    date: "02",
+    highlight: false,
   },
   {
     title: "Cobros rápidos",
     icon: "fas fa-stopwatch",
     description:
       "Optimiza los tiempos de cobro en puntos de venta físicos con soluciones ágiles.",
+    date: "03",
+    highlight: false,
   },
   {
     title: "Visibilidad total",
     icon: "fas fa-chart-line",
     description:
       "Monitorea cada pago con datos en tiempo real para tomar decisiones informadas.",
+    date: "04",
+    highlight: true,
   },
 ];
 ---
 
-<!-- title -->
-<div class="pt-20 px-4 md:px-6 text-center">
-  <h2 class="text-2xl md:text-3xl font-bold text-neutral-700 text-balance">
-    Nuestro <span class="text-yellow-500">valor agregado</span>
+<!-- Header -->
+<div class="pt-24 pb-4 px-4 md:px-6 text-center av-header" data-anim>
+  <span class="av-label inline-block text-xs font-semibold tracking-[0.2em] uppercase text-neutral-400 mb-3">Valor agregado</span>
+  <h2 class="av-heading text-3xl md:text-[2.75rem] font-bold text-neutral-800 leading-tight">
+    Nuestro <span class="text-tertiary">valor agregado</span>
   </h2>
-  <p class="mt-2 text-sm md:text-lg text-neutral-600">
+  <p class="av-subheading mt-4 text-base md:text-lg text-neutral-500 max-w-[50ch] mx-auto">
     Conoce cómo nuestros productos transforman la manera de realizar pagos.
   </p>
 </div>
 
-<section class="relative w-full max-w-6xl mx-auto px-4 py-24">
-  <!-- Fondo sutil -->
-  <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,224,0.14)_0%,_transparent_70%)]"></div>
-    <div class="absolute top-1/3 left-1/4 w-[520px] h-[520px] bg-yellow-100 rounded-full blur-3xl opacity-30"></div>
-    <div class="absolute bottom-0 right-1/4 w-[420px] h-[420px] bg-primary/30 rounded-full blur-2xl opacity-20"></div>
+<!-- Timeline -->
+<section class="relative w-full max-w-4xl mx-auto px-6 py-16 md:py-24 overflow-hidden">
+  <!-- Central line -->
+  <div class="absolute left-1/2 top-0 -translate-x-1/2 hidden sm:block w-px h-full z-0">
+    <div class="absolute inset-0 bg-neutral-200"></div>
+    <div id="tl-progress" class="absolute left-0 top-0 w-full h-0 bg-tertiary rounded-full transition-[height] duration-100"></div>
   </div>
+  <!-- Mobile left line -->
+  <div class="absolute left-[2.625rem] top-0 sm:hidden w-px h-full bg-neutral-200 z-0"></div>
 
-  <!-- Línea central + progreso -->
-  <div class="absolute top-0 left-1/2 -translate-x-1/2 hidden sm:block w-[3px] h-full z-0">
-    <div class="absolute inset-0 bg-gradient-to-b from-secondary via-yellow-400 to-secondary opacity-40 rounded-full"></div>
-    <div id="tl-progress" class="absolute left-0 top-0 w-full h-0 bg-yellow-400 rounded-full will-change-[height]"></div>
-  </div>
-
-  <div class="relative z-10 space-y-16">
+  <div class="relative z-10 flex flex-col gap-0">
     {timelineSteps.map((step, index) => {
       const isLeft = index % 2 === 0;
       return (
-        <div
-          class={`flex flex-col sm:flex-row ${isLeft ? "sm:justify-start" : "sm:justify-end"} items-center relative`}
-          data-gsap="fade-up"
-        >
-          {/* Columna izquierda (texto cuando index par) */}
-          <div class={`hidden sm:flex items-center w-1/2 ${isLeft ? "justify-end pr-8 text-right" : "justify-end pr-8"}`}>
-            {isLeft && (
-              <article class="max-w-sm bg-white/95 border border-neutral-200 rounded-2xl p-5 shadow-md backdrop-blur-sm">
-                <h4 class="font-semibold text-xl text-neutral-800">{step.title}</h4>
-                <p class="text-sm text-neutral-700 mt-2">{step.description}</p>
-              </article>
-            )}
+        <div class="tl-item relative" data-anim data-index={index}>
+          {/* Date badge - centered on line */}
+          <div class={`
+            tl-date-badge
+            hidden sm:flex items-center justify-center
+            absolute left-1/2 -translate-x-1/2 top-0 z-20
+            px-4 py-1 rounded-full text-sm font-semibold tracking-wide
+            border shadow-sm
+            ${step.highlight
+              ? 'bg-tertiary text-white border-tertiary/60'
+              : 'bg-neutral-100 text-neutral-500 border-neutral-200'
+            }
+          `}>
+            {step.date}
+          </div>
+          {/* Mobile date badge */}
+          <div class={`
+            tl-date-badge
+            sm:hidden flex items-center justify-center
+            absolute left-6 top-0 z-20
+            w-9 h-9 rounded-full text-xs font-bold
+            ${step.highlight
+              ? 'bg-tertiary text-white'
+              : 'bg-neutral-100 text-neutral-500 border border-neutral-200'
+            }
+          `}>
+            {step.date}
           </div>
 
-          {/* Bead central */}
-          <div class="relative z-10 will-change-transform">
-            <span class="pointer-events-none absolute inset-0 -m-2 rounded-full bg-yellow-400/25 blur-md"></span>
-            <div
-              class="w-20 h-20 bg-white border-4 border-yellow-400 rounded-full flex items-center justify-center shadow-xl text-yellow-500"
-              data-gsap="bead-pop"
-              aria-hidden="true"
-            >
-              <i class={`${step.icon} text-3xl`}></i>
+          {/* Vertical segment from badge */}
+          <div class="hidden sm:block absolute left-1/2 -translate-x-1/2 top-8 w-px h-8 bg-neutral-200 z-10"></div>
+          <div class="sm:hidden absolute left-[2.625rem] top-9 w-px h-6 bg-neutral-200 z-10"></div>
+
+          {/* Content card */}
+          <div class={`
+            tl-card
+            pt-16 sm:pt-20 pb-12
+            sm:w-[calc(50%-2rem)]
+            ${isLeft ? 'sm:mr-auto sm:pr-0 sm:text-right' : 'sm:ml-auto sm:pl-0 sm:text-left'}
+            pl-16 sm:pl-0
+          `}>
+            <div class="flex items-center gap-3 mb-3 sm:justify-start" style={isLeft ? '' : ''}>
+              <div class={`
+                w-10 h-10 rounded-xl flex items-center justify-center shrink-0
+                ${step.highlight ? 'bg-tertiary/10 text-tertiary' : 'bg-neutral-100 text-neutral-400'}
+              `}>
+                <i class={`${step.icon} text-lg`}></i>
+              </div>
+              <h4 class="font-semibold text-lg md:text-xl text-neutral-800 tracking-tight uppercase">
+                {step.title}
+              </h4>
             </div>
-          </div>
-
-          {/* Columna derecha (texto cuando index impar) */}
-          <div class={`hidden sm:flex items-center w-1/2 ${!isLeft ? "justify-start pl-8 text-left" : "justify-start pl-8"}`}>
-            {!isLeft && (
-              <article class="max-w-sm bg-white/95 border border-neutral-200 rounded-2xl p-5 shadow-md backdrop-blur-sm">
-                <h4 class="font-semibold text-xl text-neutral-800">{step.title}</h4>
-                <p class="text-sm text-neutral-700 mt-2">{step.description}</p>
-              </article>
-            )}
-          </div>
-
-          {/* Móvil: card simple */}
-          <div class="sm:hidden mt-4 text-center w-full px-2">
-            <article class="bg-white border border-neutral-200 rounded-2xl p-5 shadow-md">
-              <h4 class="font-semibold text-lg text-neutral-900">{step.title}</h4>
-              <p class="text-sm text-neutral-700 mt-2">{step.description}</p>
-            </article>
+            <p class="text-sm md:text-base text-neutral-500 leading-relaxed max-w-sm sm:text-left">
+              {step.description}
+            </p>
           </div>
         </div>
       );
@@ -105,53 +123,101 @@ const timelineSteps = [
 </section>
 
 <style>
+  .tl-item { opacity: 0; }
+  .tl-date-badge { opacity: 0; transform: scale(0.8); }
+  .av-heading, .av-subheading, .av-label { opacity: 0; }
+
   @media (prefers-reduced-motion: reduce) {
-    [data-gsap] { opacity: 1 !important; transform: none !important; }
+    .tl-item, .tl-date-badge, .av-heading, .av-subheading, .av-label {
+      opacity: 1 !important;
+      transform: none !important;
+    }
   }
 </style>
 
-<script  >
+<script>
   import gsap from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
   gsap.registerPlugin(ScrollTrigger);
 
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Animación fade-up de cada bloque
-  const rows = document.querySelectorAll('[data-gsap="fade-up"]') as NodeListOf<HTMLElement>;
+  // --- Header entrance ---
+  const avLabel = document.querySelector('.av-label') as HTMLElement;
+  const avHeading = document.querySelector('.av-heading') as HTMLElement;
+  const avSubheading = document.querySelector('.av-subheading') as HTMLElement;
+
+  if (!prefersReduced && avHeading) {
+    const headerTl = gsap.timeline({
+      scrollTrigger: { trigger: avHeading, start: 'top 85%', toggleActions: 'play none none none' }
+    });
+    headerTl
+      .fromTo(avLabel, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' })
+      .fromTo(avHeading, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.2')
+      .fromTo(avSubheading, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3');
+  } else {
+    gsap.set([avLabel, avHeading, avSubheading], { opacity: 1, y: 0 });
+  }
+
+  // --- Timeline items: staggered slide-in from alternating sides ---
+  const items = document.querySelectorAll('.tl-item') as NodeListOf<HTMLElement>;
   if (!prefersReduced) {
-    rows.forEach((el, i) => {
-      gsap.fromTo(el, { autoAlpha: 0, y: 56 }, {
-        autoAlpha: 1, y: 0, duration: 0.8, delay: i * 0.08, ease: 'power2.out',
-        scrollTrigger: { trigger: el, start: 'top 80%', toggleActions: 'play none none none' }
+    items.forEach((el, i) => {
+      const isLeft = i % 2 === 0;
+      const card = el.querySelector('.tl-card') as HTMLElement;
+      const badge = el.querySelector('.tl-date-badge') as HTMLElement;
+      const badges = el.querySelectorAll('.tl-date-badge');
+
+      // Item fade in
+      gsap.fromTo(el,
+        { opacity: 0 },
+        {
+          opacity: 1, duration: 0.5, ease: 'power2.out',
+          scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
+        }
+      );
+
+      // Card slides from its side
+      if (card) {
+        const xFrom = isLeft ? -40 : 40;
+        gsap.fromTo(card,
+          { opacity: 0, x: xFrom },
+          {
+            opacity: 1, x: 0, duration: 0.7, ease: 'power3.out',
+            scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
+          }
+        );
+      }
+
+      // Date badges pop in
+      badges.forEach((b) => {
+        gsap.fromTo(b,
+          { opacity: 0, scale: 0.7 },
+          {
+            opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(2)', delay: 0.15,
+            scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
+          }
+        );
       });
     });
   } else {
-    rows.forEach((el) => { el.style.opacity = '1'; el.style.transform = 'none'; });
-  }
-
-  // Pop suave de cada bead al entrar
-  const beads = document.querySelectorAll('[data-gsap="bead-pop"]');
-  if (!prefersReduced) {
-    beads.forEach((b) => {
-      gsap.fromTo(b, { scale: 0.9 }, {
-        scale: 1, duration: 0.6, ease: 'back.out(1.6)',
-        scrollTrigger: { trigger: b, start: 'top 90%', toggleActions: 'play none none none' }
-      });
+    items.forEach((el) => { el.style.opacity = '1'; });
+    document.querySelectorAll('.tl-date-badge').forEach((b) => {
+      (b as HTMLElement).style.opacity = '1';
+      (b as HTMLElement).style.transform = 'none';
     });
   }
 
-  // Progreso de la línea central (solo desktop)
+  // --- Progress line draw (desktop only) ---
   const progressEl = document.getElementById('tl-progress');
   if (progressEl && !prefersReduced && window.matchMedia('(min-width: 640px)').matches) {
     const section = progressEl.closest('section');
     ScrollTrigger.create({
       trigger: section,
-      start: 'top 10%',
+      start: 'top 20%',
       end: 'bottom 80%',
       onUpdate: (self) => {
-        const h = Math.max(0, Math.min(1, self.progress));
-        progressEl.style.height = `${h * 100}%`;
+        progressEl.style.height = `${Math.max(0, Math.min(1, self.progress)) * 100}%`;
       }
     });
   }

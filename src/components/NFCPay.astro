@@ -2,50 +2,106 @@
 import { Image } from "astro:assets";
 import girlImage from "../assets/girl-nfc.jpg";
 ---  
-  <section class="w-full bg-white pb-10 px-4 md:p-6  my-10">
-    <div
-      class="max-w-screen-xl mx-auto flex flex-col md:flex-row gap-10 md:gap-20  items-center bg-neutral-50 rounded-3xl border border-neutral-200"
-    >
-      <div
-        class="w-full md:w-1/2 bg-tertiary/80 rounded-t-3xl md:rounded-l-3xl md:rounded-t-none p-7 md:py-20 flex items-center justify-center"
-      >
-        <div
-          class=" overflow-hidden rounded-xl shadow-md border border-neutral-200 "
-        >
-          <Image
-            src={girlImage}
-            width={400}
-            height={500}
-            alt="Niña pagando con pulsera JoiSolutions"
-            class="object-cover w-full h-full"
-            loading="lazy"
-          />
+  <section class="w-full bg-neutral-50/60 py-16 md:py-24 px-4 md:px-6 nfc-section" data-anim>
+    <div class="max-w-6xl mx-auto">
+      <!-- Section layout: image left, content right -->
+      <div class="flex flex-col md:flex-row gap-10 md:gap-16 items-center">
+        <!-- Image side -->
+        <div class="nfc-image-wrap w-full md:w-5/12 relative">
+          <!-- Decorative accent behind image -->
+          <div class="absolute -top-4 -left-4 w-full h-full rounded-2xl bg-tertiary/10 -z-10" aria-hidden="true"></div>
+          <div class="overflow-hidden rounded-2xl shadow-xl">
+            <Image
+              src={girlImage}
+              width={520}
+              height={620}
+              alt="Niña pagando con pulsera NFC Joi Solutions en punto de venta escolar"
+              class="object-cover w-full h-auto"
+              loading="lazy"
+            />
+          </div>
+          <!-- Small floating accent dot -->
+          <div class="absolute -bottom-3 -right-3 w-6 h-6 rounded-full bg-tertiary shadow-lg shadow-tertiary/30 z-10" aria-hidden="true"></div>
         </div>
-      </div>
 
-      <!-- Texto -->
-      <div class="w-full md:w-1/2 space-y-6 p-6 flex flex-col items-center md:items-start">
-        <div
-          class="border flex items-center  gap-2 w-fit px-6 py-1 rounded-full text-center text-neutral-500 text-sm md:text-lg font-medium mb-6 bg-neutral-50 border-neutral-200 shadow-2xl"
-        >
-          <i class="fa-brands fa-nfc-symbol text-tertiary"></i>
-          <span class="flex items-center gap-1">Pago NFC</span>
+        <!-- Content side -->
+        <div class="nfc-content w-full md:w-7/12 space-y-5 flex flex-col items-center md:items-start">
+          <div
+            class="nfc-badge border flex items-center gap-2 w-fit px-5 py-1.5 rounded-full text-neutral-500 text-sm font-medium bg-white border-neutral-200 shadow-sm"
+          >
+            <i class="fa-brands fa-nfc-symbol text-tertiary"></i>
+            <span class="flex items-center gap-1">Pago NFC</span>
+          </div>
+          <h2 class="text-2xl md:text-4xl font-bold text-neutral-800 leading-tight">
+            Pagos flexibles con TAQ
+          </h2>
+          <p class="text-neutral-500 text-sm md:text-base leading-relaxed text-center md:text-left max-w-lg">
+            Revoluciona la experiencia de pago en escuelas, eventos y centros
+            comerciales con un sistema que pone el control en manos de los
+            usuarios, ¡descubre más aquí!
+          </p>
+          <a
+            href="/joi-taq"
+            class="group bg-primary text-sm md:text-base gap-2 px-8 mt-4 text-white py-3 rounded-full shadow-lg shadow-primary/15 cursor-trigger cursor-pointer relative z-10 overflow-hidden transition-all duration-300 inline-flex items-center"
+          >
+            <span class="relative z-10 font-medium">Descubre más</span>
+            <i class="fa fa-arrow-right text-tertiary ml-2 relative z-10 transition-transform duration-300 group-hover:translate-x-1"></i>
+            <div class="absolute inset-0 bg-linear-to-r from-primary to-primary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </a>
         </div>
-        <h2 class="text-2xl md:text-4xl font-bold text-neutral-700">
-          Pagos flexibles con TAQ
-        </h2>
-        <p class="text-neutral-600 text-sm md:text-lg  text-center md:text-left">
-          Revoluciona la experiencia de pago en escuelas, eventos y centros
-          comerciales con un sistema que pone el control en manos de los
-          usuarios, ¡descubre más aquí!
-        </p>
-        <a
-          href="/joi-taq"
-          class="bg-primary text-sm md:text-lg  gap-2 px-8 mt-6 text-white py-3 rounded-full shadow-lg cursor-trigger cursor-pointer relative z-[40]"
-        >
-          <span class="relative z-[60] font-medium">Descubre más</span>
-          <i class="fa fa-arrow-right text-white ml-2"></i>
-        </a>
       </div>
     </div>
   </section>
+
+<style>
+  .nfc-image-wrap { opacity: 0; transform: translateY(30px); }
+  .nfc-content { opacity: 0; transform: translateY(30px); }
+  @media (prefers-reduced-motion: reduce) {
+    .nfc-image-wrap, .nfc-content { opacity: 1 !important; transform: none !important; }
+  }
+</style>
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
+
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const section = document.querySelector(".nfc-section") as HTMLElement;
+  const imageWrap = document.querySelector(".nfc-image-wrap") as HTMLElement;
+  const content = document.querySelector(".nfc-content") as HTMLElement;
+
+  if (!prefersReduced && section) {
+    // Image: fade-in with slight rise
+    gsap.fromTo(imageWrap,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1, y: 0, duration: 0.9, ease: "power2.out",
+        scrollTrigger: { trigger: section, start: "top 75%", toggleActions: "play none none none" }
+      }
+    );
+
+    // Content: fade-in with slight rise, staggered
+    gsap.fromTo(content,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1, y: 0, duration: 0.8, ease: "power3.out", delay: 0.15,
+        scrollTrigger: { trigger: section, start: "top 75%", toggleActions: "play none none none" }
+      }
+    );
+
+    // Badge: pop in with scale
+    const badge = document.querySelector(".nfc-badge") as HTMLElement;
+    if (badge) {
+      gsap.fromTo(badge,
+        { opacity: 0, scale: 0.8 },
+        {
+          opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.5)", delay: 0.4,
+          scrollTrigger: { trigger: section, start: "top 75%", toggleActions: "play none none none" }
+        }
+      );
+    }
+  } else {
+    gsap.set([imageWrap, content], { opacity: 1, x: 0, y: 0 });
+  }
+</script>

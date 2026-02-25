@@ -7,9 +7,9 @@ import JoiPayBand from '../assets/band-1.png';
   <!-- Fondo decorativo -->
   <div aria-hidden="true" class="absolute inset-0">
     <!-- Mesh blobs -->
-    <div class="absolute -top-40 -left-32 w-[28rem] h-[28rem] rounded-full opacity-35 blur-3xl
+    <div class="absolute -top-40 -left-32 w-md h-112 rounded-full opacity-35 blur-3xl
                 [background:radial-gradient(60%_60%_at_50%_50%,var(--color-secondary),transparent_70%)]"></div>
-    <div class="absolute -bottom-40 -right-32 w-[32rem] h-[32rem] rounded-full opacity-35 blur-3xl
+    <div class="absolute -bottom-40 -right-32 w-lg h-128 rounded-full opacity-35 blur-3xl
                 [background:radial-gradient(60%_60%_at_50%_50%,#8ad7ff,transparent_70%)]"></div>
 
     <!-- Grid sutil -->
@@ -23,14 +23,14 @@ import JoiPayBand from '../assets/band-1.png';
     <div class="absolute inset-0 pointer-events-none glow-anim"></div>
   </div>
 
-  <div class="relative z-10 max-w-screen-xl mx-auto flex flex-col md:flex-row items-center justify-center gap-10 md:gap-20 px-6 py-14 md:p-10">
+  <div class="relative z-10 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center gap-10 md:gap-20 px-6 py-14 md:p-10">
     <!-- Imagen animada -->
     <div class="w-full md:w-1/2 flex justify-center" data-gsap="img-scale" data-tilt>
       <Image
         src={JoiPayBand}
         width={420}
         height={420}
-        class="w-[220px] md:w-[420px] drop-shadow-2xl will-change-transform"
+        class="w-55 md:w-105 drop-shadow-2xl will-change-transform"
         alt="Imagen de JoiPay Band"
         loading="lazy"
       />
@@ -101,7 +101,7 @@ import JoiPayBand from '../assets/band-1.png';
         >
           <i class={`fas ${icon}`}></i>
         </div>
-        <h3 class="text-xl font-semibold text-neutral-900 leading-snug tracking-tight min-w-0 break-words text-left ">
+        <h3 class="text-xl font-semibold text-neutral-900 leading-snug tracking-tight min-w-0 wrap-break-word text-left ">
           {title}
         </h3>
       </header>

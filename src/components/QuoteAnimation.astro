@@ -4,27 +4,27 @@ import JoiVideo2 from "../assets/joi-video-2.mp4";
 
 const { video = 1 } = Astro.props;
 ---
-<section class="py-20 md:py-40 w-full flex items-center justify-center relative overflow-hidden border-y border-neutral-200 bg-neutral-50">
+<section class="py-20 md:py-32 w-full flex items-center justify-center relative overflow-hidden border-y border-neutral-200 bg-linear-to-b from-neutral-50 to-white">
   <div
-    class="flex flex-col items-center justify-center max-w-screen-xl mx-auto px-4"
+    class="flex flex-col items-center justify-center max-w-7xl mx-auto px-6"
   >
     <p
-      class="text-2xl md:text-[3.5em]  3xl:text-[3em] font-medium text-neutral-700 text-center leading-[1.1em] mb-4 animate-quote text-balance"
+      class="text-2xl md:text-[3.2em] 3xl:text-[3em] font-semibold text-neutral-700 text-center leading-[1.15em] mb-4 animate-quote text-balance"
     >
         Pagos seguros, eficientes y transparentes con tecnología avanzada<span class="text-tertiary font-black">.</span>
     </p>
-          <div class="mt-10">
-        <video
-          src={video === 1 ? JoiVideo : JoiVideo2}
-          class="w-full max-w-3xl rounded-2xl shadow-lg"
-          controls
-          autoplay
-          muted
-          loop
-        ></video>
-      </div>
+    <div class="mt-10 qa-video-wrap" data-anim>
+      <video
+        src={video === 1 ? JoiVideo : JoiVideo2}
+        class="w-full max-w-3xl rounded-2xl shadow-xl border border-neutral-200/50"
+        controls
+        muted
+        loop
+        preload="metadata"
+      ></video>
+    </div>
   </div>
-  <div class="absolute -bottom-[5em] md:-bottom-[10em] left-1/2 h-[5em] w-[5em]  md:h-[10em] md:w-[10em] rounded-full bg-tertiary/80 -translate-x-1/2 -translate-y-1/2"></div>
+  <div class="absolute -bottom-[5em] md:-bottom-[10em] left-1/2 h-[5em] w-[5em] md:h-[10em] md:w-[10em] rounded-full bg-tertiary/60 -translate-x-1/2 -translate-y-1/2 blur-sm"></div>
 </section>
 <script>
   import gsap from "gsap";
@@ -33,26 +33,47 @@ const { video = 1 } = Astro.props;
 
   gsap.registerPlugin(SplitText, ScrollTrigger);
 
-  const animateQuote = document.querySelector(
-    ".animate-quote"
-  ) as HTMLElement;
-  const splitText = new SplitText(animateQuote, {
-    type: "words",
-    aria: "hidden",
-  });
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const animateQuote = document.querySelector(".animate-quote") as HTMLElement;
 
-  const words = splitText.words;
-  const tl = gsap.timeline({});
-  gsap.from(words, {
-    opacity: 0,
-    stagger: 0.1,
-    duration: 2,
-    ease: "sine.out",
-    scrollTrigger: {
-      trigger: animateQuote,
-      start: "top 80%",
-      end: "top 20%",
-      toggleActions: "play none none reverse",
-    },
-  });
+  if (animateQuote && !prefersReduced) {
+    const splitText = new SplitText(animateQuote, {
+      type: "words",
+      aria: "hidden",
+    });
+
+    gsap.from(splitText.words, {
+      opacity: 0,
+      y: 12,
+      stagger: 0.06,
+      duration: 0.8,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: animateQuote,
+        start: "top 80%",
+        toggleActions: "play none none none",
+      },
+    });
+  }
+
+  // --- Video: circle-expand clip-path reveal ---
+  const videoWrap = document.querySelector(".qa-video-wrap") as HTMLElement;
+  if (videoWrap && !prefersReduced) {
+    gsap.fromTo(videoWrap,
+      { clipPath: "circle(0% at 50% 50%)", opacity: 0.5 },
+      {
+        clipPath: "circle(75% at 50% 50%)", opacity: 1,
+        duration: 1.2,
+        ease: "power2.inOut",
+        scrollTrigger: {
+          trigger: videoWrap,
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+      }
+    );
+  } else if (videoWrap) {
+    videoWrap.style.clipPath = "none";
+    videoWrap.style.opacity = "1";
+  }
 </script>
