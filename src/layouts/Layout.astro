@@ -5,21 +5,30 @@ import Navigation from "../components/Navigation.astro";
 import CustomCursor from "../components/CustomCursor.astro";
 import Footer from "../components/Footer.astro";
 
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+
+const { title: pageTitle, description: pageDescription, noindex = false } = Astro.props;
+
 /* Ajusta según tu branding */
 const site = Astro.site ?? new URL("https://joisolutions.io");
 const path = Astro.url?.pathname ?? "/";
 const canonical = new URL(path, site).toString();
 
+const defaultTitle = "Joi Solutions";
+const defaultDescription = "Tecnología innovadora que conecta a las personas para simplificar la vida, con alegría.";
+
 const SEO = {
   lang: "es",
-  title: "Joi Solutions",
-  description:
-    "Tecnología innovadora que conecta a las personas para simplificar la vida, con alegría.",
+  title: pageTitle ? `${pageTitle} — Joi Solutions` : defaultTitle,
+  description: pageDescription || defaultDescription,
   keywords:
-    "Joi Solutions,Peru, Honduras, Latinoamérica, Pagos simples, Pago seguros, Soluciones de pago, innovacion tecnológica",
-  image: new URL("/og/logo.svg", site).toString(),   // 1200x630 recomendado
+    "Joi Solutions, Joi Taq, NFC, Peru, Honduras, Latinoamérica, Pagos simples, Pagos seguros, Soluciones de pago, innovación tecnológica, control de acceso, tecnología educativa",
+  image: new URL("/og/logo.svg", site).toString(),
   imageAlt: "Joi Solutions — Tecnología innovadora que conecta a las personas para simplificar la vida, con alegría.",
-  twitter: "@", // pon tu usuario real o déjalo vacío
   locale: "es_LA",
   themeLight: "#ffffff",
   themeDark: "#0B132B",
@@ -52,12 +61,15 @@ const alternates = [
     ))}
 
     <!-- Robots -->
-    <meta
-      name="robots"
-      content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
-    />
-    <meta name="googlebot" content="index, follow" />
-    <meta name="bingbot" content="index, follow" />
+    {noindex ? (
+      <meta name="robots" content="noindex, nofollow" />
+    ) : (
+      <>
+        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+        <meta name="googlebot" content="index, follow" />
+        <meta name="bingbot" content="index, follow" />
+      </>
+    )}
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="format-detection" content="telephone=no, address=no, email=no" />
 
@@ -80,8 +92,6 @@ const alternates = [
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    {SEO.twitter && <meta name="twitter:site" content={SEO.twitter} />}
-    {SEO.twitter && <meta name="twitter:creator" content={SEO.twitter} />}
     <meta name="twitter:title" content={SEO.title} />
     <meta name="twitter:description" content={SEO.description} />
     <meta name="twitter:image" content={SEO.image} />
@@ -111,10 +121,27 @@ const alternates = [
         "@context": "https://schema.org",
         "@type": "Organization",
         name: "Joi Solutions",
+        legalName: "Joi Solutions S.A.C.",
         url: site.toString(),
-        logo: new URL("/logo.png", site).toString(),
+        logo: new URL("/og/logo.svg", site).toString(),
+        description: "Tecnología innovadora que conecta a las personas para simplificar la vida, con alegría.",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "Calle Coronel Andrés Reyes 437, oficina 902",
+          addressLocality: "San Isidro",
+          addressRegion: "Lima",
+          addressCountry: "PE",
+        },
+        contactPoint: {
+          "@type": "ContactPoint",
+          email: "info@joisolutions.io",
+          contactType: "customer service",
+          availableLanguage: ["es"],
+        },
         sameAs: [
           "https://www.instagram.com/joi_solutions",
+          "https://www.linkedin.com/company/joisolutions/",
+          "https://www.facebook.com/share/1C7FGbsHQn/",
         ],
       })}
     </script>
@@ -141,13 +168,7 @@ const alternates = [
 
       gtag('config', 'G-2DEQZ2HY34');
     </script>
-  </head>
-  <body class="font-poppins">
-    <CustomCursor />
-    <AnimationInit />
-    <Navigation />
-    <slot />
-    <Footer />
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -155,6 +176,13 @@ const alternates = [
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+  </head>
+  <body class="font-poppins">
+    <CustomCursor />
+    <AnimationInit />
+    <Navigation />
+    <slot />
+    <Footer />
   </body>
 </html>
 

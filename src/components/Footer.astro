@@ -1,7 +1,4 @@
 ---
-//docs
-import PoliticaDePrivacidad from "../assets/docs/politicas-de-privacidad.pdf";
-import TerminosDeServicio from "../assets/docs/terminos-de-servicio.pdf";
 import JoiSolutionsIcon from "../icons/JoiSolutionsIcon.astro";
 const currentYear = new Date().getFullYear();
 ---
@@ -108,29 +105,16 @@ const currentYear = new Date().getFullYear();
         <ul class="flex flex-col md:flex-row  items-start md:items-center gap-2 md:gap-6 mb-4">
           <li>
             <a
-              href={"/_astro/terminos-y-condiciones.CAOWZU4X.pdf"}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/terminos-y-condiciones"
               class="text-sm text-neutral-600 cursor-trigger"
               >Términos y Condiciones</a
             >
           </li>
           <li>
             <a
-              href={PoliticaDePrivacidad}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/politica-de-privacidad"
               class="text-sm text-neutral-600 cursor-trigger"
               >Política de Privacidad</a
-            >
-          </li>
-          <li>
-            <a
-              href={TerminosDeServicio}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-sm text-neutral-600 cursor-trigger"
-              >Términos de Servicio</a
             >
           </li>
         </ul>
