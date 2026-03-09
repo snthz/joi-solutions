@@ -60,36 +60,56 @@ const blocks = [
 
   gsap.registerPlugin(ScrollTrigger, SplitText);
 
-  // Título principal animado
-  const title = document.querySelector(".animate-heading");
-  const split = new SplitText(title, { type: "words", aria: "hidden" });
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  gsap.from(split.words, {
-    opacity: 0,
-    y: 30,
-    stagger: 0.05,
-    duration: 0.6,
-    ease: "power2.out",
-    scrollTrigger: {
-      trigger: title,
-      start: "top 80%",
-    },
-  });
+  if (!prefersReduced) {
+    // Título principal: word-by-word reveal with blur
+    const title = document.querySelector(".animate-heading");
+    if (title) {
+      const split = new SplitText(title, { type: "words", aria: "hidden" });
+      gsap.fromTo(split.words,
+        { opacity: 0, y: 20, filter: "blur(3px)" },
+        {
+          opacity: 1, y: 0, filter: "blur(0px)",
+          stagger: 0.05, duration: 0.8, ease: "power3.out",
+          scrollTrigger: { trigger: title, start: "top 82%" },
+        }
+      );
+    }
 
-  // Animación para cada bloque
-  const blocks = document.querySelectorAll(".fade-block");
-  blocks.forEach((block, i) => {
-    gsap.to(block, {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      duration: 0.7,
-      ease: "power3.out",
-      delay: i * 0.2,
-      scrollTrigger: {
-        trigger: block,
-        start: "top 85%",
-      },
+    // Blocks: staggered slide in from bottom with icon entrance
+    const blocks = document.querySelectorAll(".fade-block");
+    blocks.forEach((block, i) => {
+      const icon = block.querySelector("i");
+      const label = block.querySelector(".rounded-full");
+
+      const blockTl = gsap.timeline({
+        scrollTrigger: { trigger: block, start: "top 85%" },
+      });
+
+      blockTl.fromTo(block,
+        { opacity: 0, y: 40, scale: 0.97 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out", delay: i * 0.15 }
+      );
+
+      if (icon) {
+        blockTl.fromTo(icon,
+          { scale: 0.5, opacity: 0, rotation: -15 },
+          { scale: 1, opacity: 1, rotation: 0, duration: 0.6, ease: "back.out(1.8)" },
+          "-=0.5"
+        );
+      }
+
+      if (label) {
+        blockTl.fromTo(label,
+          { opacity: 0, x: -10 },
+          { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" },
+          "-=0.4"
+        );
+      }
     });
-  });
+  } else {
+    gsap.set(".animate-heading", { opacity: 1 });
+    gsap.set(".fade-block", { opacity: 1, y: 0, scale: 1 });
+  }
 </script>

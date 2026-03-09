@@ -79,7 +79,7 @@ const timelineSteps = [
           <div class={`
             tl-date-badge
             sm:hidden flex items-center justify-center
-            absolute left-6 top-0 z-20
+            absolute left-[2.625rem] -translate-x-1/2 top-0 z-20
             w-9 h-9 rounded-full text-xs font-bold
             ${step.highlight
               ? 'bg-tertiary text-white'
@@ -89,9 +89,8 @@ const timelineSteps = [
             {step.date}
           </div>
 
-          {/* Vertical segment from badge */}
+          {/* Vertical segment from badge (desktop only) */}
           <div class="hidden sm:block absolute left-1/2 -translate-x-1/2 top-8 w-px h-8 bg-neutral-200 z-10"></div>
-          <div class="sm:hidden absolute left-[2.625rem] top-9 w-px h-6 bg-neutral-200 z-10"></div>
 
           {/* Content card */}
           <div class={`

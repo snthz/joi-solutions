@@ -31,11 +31,9 @@ const sections = [
 
 <Layout title="Nosotros" description="Somos el puente entre la innovación y quienes la hacen posible. Conoce la historia, misión y visión de Joi Solutions.">
   <section class="relative overflow-hidden">
-    <!-- bg gradient bottom -->
-    <!-- <div
-    class="absolute inset-0 bg-gradient-to-b from-neutral-50 to-tertiary-dark/40 opacity-10"
-  >
-  </div> -->
+    <div class="absolute inset-0 -z-10 pointer-events-none" aria-hidden="true">
+      <div class="absolute inset-0 opacity-40" style="background-image: linear-gradient(rgba(32,57,111,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(32,57,111,0.035) 1px, transparent 1px); background-size: 80px 80px;"></div>
+    </div>
     <div
       class="w-full flex flex-col items-center pt-36 pb-10 overflow-hidden justify-center px-4 md:pl-2 relative min-h-[60vh] 3xl:h-[10vh]"
     >
@@ -77,23 +75,7 @@ const sections = [
       </div>
     </div>
   </section>
-    <div class="absolute inset-0 -z-10 pointer-events-none">
-    <Image
-      src={heroBg}
-      alt="Background"
-      class="w-full h-full object-cover opacity-50"
-      loading="lazy"
-      width={1920}
-      height={1080}
-      priority
-    />
 
-    <!-- Overlay radial para enfocar el centro -->
-    <div
-      class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_60%_40%,rgba(0,0,0,0)_0%,rgba(255,255,255,0.8)_60%)] pointer-events-none mix-blend-screen"
-    >
-    </div>
-  </div>
   <Purpose />
   <MisionAndVision />
 <RedJoi />
@@ -106,36 +88,37 @@ const sections = [
 
   gsap.registerPlugin(SplitText);
 
-  const animateButton = document.querySelectorAll(
-    ".animate-button"
-  ) as NodeListOf<HTMLElement>;
-  const splitText = new SplitText(".animate-text", {
-    type: "words",
-    aria: "hidden",
-  });
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const words = splitText.words;
-  const tl = gsap.timeline({
-    defaults: { duration: 0.5, ease: "power2.out" },
-  });
-  // tl.delay(2.5);
-  tl.from(words, {
-    opacity: 0,
-    stagger: 0.1,
-    duration: 2,
-    ease: "sine.out",
-  });
+  if (!prefersReduced) {
+    const animateButtons = document.querySelectorAll(".animate-button") as NodeListOf<HTMLElement>;
+    const splitText = new SplitText(".animate-text", {
+      type: "words",
+      aria: "hidden",
+    });
 
-  animateButton.forEach((button) => {
-    tl.from(
-      button,
-      {
-        opacity: 0,
-        scale: 0.8,
-        duration: 0.5,
-        ease: "power2.out",
-      },
-      "<0.5"
+    const words = splitText.words;
+    const tl = gsap.timeline({
+      defaults: { ease: "power4.out" },
+    });
+
+    // Smooth staggered word reveal with vertical slide
+    tl.fromTo(words, 
+      { opacity: 0, y: 24, filter: "blur(4px)" },
+      { opacity: 1, y: 0, filter: "blur(0px)", stagger: 0.04, duration: 1.2, ease: "power3.out" }
     );
-  });
+
+    // Buttons scale in with elastic ease
+    animateButtons.forEach((button) => {
+      tl.fromTo(
+        button,
+        { opacity: 0, y: 20, scale: 0.9 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "back.out(1.4)" },
+        "-=0.6"
+      );
+    });
+  } else {
+    gsap.set(".animate-text", { opacity: 1 });
+    gsap.set(".animate-button", { opacity: 1 });
+  }
 </script>

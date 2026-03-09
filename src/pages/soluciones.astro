@@ -1,0 +1,93 @@
+---
+import Layout from "../layouts/Layout.astro";
+import CTA from "../components/CTA.astro";
+
+const solutions = [
+  {
+    title: "Colegios",
+    description:
+      "Transforma la gestión financiera y operativa de tu colegio. Centraliza pagos, controla procesos y mejora la experiencia con pulseras NFC, app para padres y panel administrativo.",
+    icon: "fas fa-graduation-cap",
+    href: "/colegios",
+    features: ["Pulsera NFC", "App para padres", "Panel administrativo", "Pagos sin efectivo"],
+  },
+  {
+    title: "Joi Taq",
+    description:
+      "Solución NFC para pagos y accesos en eventos, estadios, centros comerciales y más. Agiliza transacciones y mejora la experiencia de tus clientes con tecnología contactless.",
+    icon: "fa-brands fa-nfc-symbol",
+    href: "/joi-taq",
+    features: ["Pagos contactless", "Control de acceso", "Datos en tiempo real", "Integración flexible"],
+  },
+];
+---
+
+<Layout
+  title="Soluciones"
+  description="Descubre las soluciones de JoiSolutions: tecnología NFC para colegios, eventos, estadios y centros comerciales. Pagos simples, seguros e innovadores."
+>
+  <!-- Hero -->
+  <section class="relative bg-white pt-36 md:pt-44 pb-20 overflow-hidden">
+    <div class="absolute inset-0 -z-10 pointer-events-none" aria-hidden="true">
+      <div
+        class="absolute inset-0 opacity-40"
+        style="background-image: linear-gradient(rgba(32,57,111,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(32,57,111,0.035) 1px, transparent 1px); background-size: 80px 80px;"
+      ></div>
+    </div>
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-neutral-200 bg-white shadow-sm mb-6">
+        <i class="fas fa-star text-tertiary text-sm"></i>
+        <span class="text-sm font-medium text-neutral-500">Nuestras soluciones</span>
+      </div>
+      <h1 class="text-3xl md:text-5xl font-bold text-neutral-900 leading-tight tracking-tight">
+        Soluciones que <span class="text-tertiary">simplifican</span> la vida
+      </h1>
+      <p class="mt-6 text-neutral-500 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+        Tecnología innovadora diseñada para transformar la forma en que las personas realizan pagos y gestionan transacciones.
+      </p>
+    </div>
+  </section>
+
+  <!-- Solutions Grid -->
+  <section class="bg-neutral-50 border-y border-neutral-200 py-20 md:py-28">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {
+          solutions.map((solution) => (
+            <a
+              href={solution.href}
+              class="group bg-white rounded-2xl border border-neutral-200 p-8 md:p-10 flex flex-col shadow-sm hover:shadow-lg transition-all duration-300 hover:border-tertiary/30"
+            >
+              <div class="w-14 h-14 rounded-xl bg-tertiary/10 flex items-center justify-center mb-6">
+                <i class={`${solution.icon} text-2xl text-tertiary`}></i>
+              </div>
+              <h2 class="text-2xl md:text-3xl font-bold text-neutral-800 mb-3 group-hover:text-primary transition-colors">
+                {solution.title}
+              </h2>
+              <p class="text-neutral-500 text-sm md:text-base leading-relaxed mb-6 flex-1">
+                {solution.description}
+              </p>
+              <div class="flex flex-wrap gap-2 mb-6">
+                {solution.features.map((feature) => (
+                  <span class="px-3 py-1 rounded-full bg-neutral-100 text-xs font-medium text-neutral-500 border border-neutral-200">
+                    {feature}
+                  </span>
+                ))}
+              </div>
+              <div class="flex items-center gap-2 text-primary font-semibold text-sm group-hover:gap-3 transition-all">
+                Conocer más
+                <i class="fas fa-arrow-right text-xs text-tertiary"></i>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <CTA
+    title="¿Listo para transformar tu operación?"
+    description="Descubre cómo nuestras soluciones pueden simplificar pagos y mejorar la experiencia en tu institución o negocio."
+  />
+</Layout>

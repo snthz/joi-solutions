@@ -4,7 +4,14 @@ import LogoIcon from "../icons/JoiSolutionsIcon.astro";
 const links = [
   { name: "Inicio", href: "/" },
   { name: "Nosotros", href: "/nosotros" },
-  { name: "Joi Taq", href: "/joi-taq" },
+  {
+    name: "Soluciones",
+    href: "/soluciones",
+    children: [
+      { name: "Colegios", href: "/colegios" },
+      { name: "Joi Taq", href: "/joi-taq" },
+    ],
+  },
 ];
 ---
 
@@ -21,13 +28,34 @@ const links = [
     <ul class="hidden md:flex items-center gap-0.5 absolute left-1/2 -translate-x-1/2">
       {
         links.map((link) => (
-          <li>
-            <a
-              href={link.href}
-              class="px-5 py-2 text-sm font-medium text-neutral-500 rounded-full link transition-all duration-200 hover:text-primary hover:bg-neutral-50"
-            >
-              {link.name}
-            </a>
+          <li class="relative">
+            {link.children ? (
+              <button
+                class="dropdown-toggle px-5 py-2 text-sm font-medium text-neutral-500 rounded-full link transition-all duration-200 hover:text-primary hover:bg-neutral-50 flex items-center gap-1"
+              >
+                {link.name}
+                <i class="fas fa-chevron-down text-[8px] ml-0.5 transition-transform duration-200"></i>
+              </button>
+              <div class="dropdown-menu absolute top-full left-1/2 -translate-x-1/2 pt-2 hidden">
+                <div class="bg-white border border-neutral-200 rounded-xl shadow-lg min-w-[160px]">
+                  {link.children.map((child) => (
+                    <a
+                      href={child.href}
+                      class="block px-4 py-4 text-sm text-neutral-600 last:rounded-xl first:rounded-xl hover:bg-neutral-50 hover:text-primary transition-colors"
+                    >
+                      {child.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <a
+                href={link.href}
+                class="px-5 py-2 text-sm font-medium text-neutral-500 rounded-full link transition-all duration-200 hover:text-primary hover:bg-neutral-50"
+              >
+                {link.name}
+              </a>
+            )}
           </li>
         ))
       }
@@ -75,9 +103,27 @@ const links = [
     <ul class="flex flex-col gap-4 mt-6">
       {
         links.map((link) => (
-          <li class="py-5 border-b border-neutral-200 flex items-center justify-between">
-            <a href={link.href} class="text-xl font-medium text-neutral-700">{link.name}</a>
-            <i class="fas fa-chevron-right text-tertiary ml-2"></i>
+          <li class="border-b border-neutral-200">
+            {link.children ? (
+              <div>
+                <button class="mobile-dropdown-toggle py-5 flex items-center justify-between w-full">
+                  <span class="text-xl font-medium text-neutral-700">{link.name}</span>
+                  <i class="fas fa-chevron-down text-tertiary ml-2 transition-transform duration-200"></i>
+                </button>
+                <div class="mobile-dropdown-content hidden pl-4 pb-4">
+                  {link.children.map((child) => (
+                    <a href={child.href} class="block py-3 text-lg text-neutral-500 hover:text-primary transition-colors">
+                      {child.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div class="py-5 flex items-center justify-between">
+                <a href={link.href} class="text-xl font-medium text-neutral-700">{link.name}</a>
+                <i class="fas fa-chevron-right text-tertiary ml-2"></i>
+              </div>
+            )}
           </li>
         ))
       }
@@ -102,6 +148,12 @@ const links = [
   .nav-container {
     opacity: 0;
     transform: translateY(-12px);
+  }
+  .dropdown-toggle.active i {
+    transform: rotate(180deg);
+  }
+  .mobile-dropdown-toggle.active i {
+    transform: rotate(180deg);
   }
   @media (prefers-reduced-motion: reduce) {
     .nav-container { opacity: 1 !important; transform: none !important; }
@@ -181,4 +233,34 @@ const links = [
       mobileMenu.style.transition = "top 0.5s cubic-bezier(0.4,0,0.2,1)";
     });
   }
+
+  // Desktop dropdown
+  document.querySelectorAll(".dropdown-toggle").forEach((toggle) => {
+    const parent = toggle.closest("li") as HTMLElement;
+    const menu = parent?.querySelector(".dropdown-menu") as HTMLElement;
+    if (!parent || !menu) return;
+
+    parent.addEventListener("mouseenter", () => {
+      menu.classList.remove("hidden");
+      toggle.classList.add("active");
+    });
+    parent.addEventListener("mouseleave", () => {
+      menu.classList.add("hidden");
+      toggle.classList.remove("active");
+    });
+    toggle.addEventListener("click", () => {
+      menu.classList.toggle("hidden");
+      toggle.classList.toggle("active");
+    });
+  });
+
+  // Mobile dropdown
+  document.querySelectorAll(".mobile-dropdown-toggle").forEach((toggle) => {
+    const content = toggle.nextElementSibling as HTMLElement;
+    if (!content) return;
+    toggle.addEventListener("click", () => {
+      content.classList.toggle("hidden");
+      toggle.classList.toggle("active");
+    });
+  });
 </script>

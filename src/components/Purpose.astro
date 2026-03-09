@@ -31,27 +31,46 @@
 
     gsap.registerPlugin(SplitText, ScrollTrigger);
 
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const animateQuote = document.querySelector(".animate-quote");
 
-    const splitText = new SplitText(animateQuote, {
-      type: "words",
-      aria: "hidden",
-    });
+    if (animateQuote && !prefersReduced) {
+      const splitText = new SplitText(animateQuote, {
+        type: "words",
+        aria: "hidden",
+      });
 
-    const words = splitText.words;
+      const words = splitText.words;
 
-    gsap.from(words, {
-      opacity: 0,
-      y: 20,
-      stagger: 0.03,
-      duration: 0.6,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: animateQuote,
-        start: "top 85%",
-        end: "top 20%",
-        toggleActions: "play none none reverse",
-      },
-    });
+      gsap.fromTo(words,
+        { opacity: 0, y: 16, filter: "blur(3px)" },
+        {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          stagger: 0.025,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: animateQuote,
+            start: "top 82%",
+            end: "top 20%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      // Animate the decorative circle
+      const circle = animateQuote?.closest("section")?.querySelector(".absolute.-bottom-\\[5em\\], .absolute.-bottom-\\[10em\\]") || animateQuote?.closest("section")?.querySelector("div[class*='rounded-full'][class*='bg-tertiary']");
+      if (circle) {
+        gsap.fromTo(circle,
+          { scale: 0, opacity: 0 },
+          {
+            scale: 1, opacity: 1, duration: 1.2, ease: "power2.out",
+            scrollTrigger: { trigger: animateQuote, start: "top 60%", toggleActions: "play none none reverse" },
+          }
+        );
+      }
+    }
   </script>
 </section>

@@ -9,11 +9,9 @@ import JoiSolutionsIcon from "../icons/JoiSolutionsIcon.astro";
 ---
 
 <section class="relative overflow-hidden">
-  <!-- bg gradient bottom -->
-  <!-- <div
-    class="absolute inset-0 bg-gradient-to-b from-neutral-50 to-primary/60 opacity-10"
-  >
-  </div> -->
+  <div class="absolute inset-0 -z-10 pointer-events-none" aria-hidden="true">
+    <div class="absolute inset-0 opacity-40" style="background-image: linear-gradient(rgba(32,57,111,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(32,57,111,0.035) 1px, transparent 1px); background-size: 80px 80px;"></div>
+  </div>
   <div
     class="w-full max-w-screen-xl mx-auto flex flex-col md:flex-row  items-center pt-36 pb-10 overflow-hidden justify-center px-4 md:pl-2 relative h-screen md:min-h-[80vh] 3xl:h-[10vh]"
   >

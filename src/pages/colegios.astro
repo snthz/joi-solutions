@@ -1,0 +1,204 @@
+---
+import Layout from "../layouts/Layout.astro";
+import CTA from "../components/CTA.astro";
+---
+
+<Layout
+  title="Colegios"
+  description="Transforma la gestión financiera y operativa de tu colegio. Centraliza pagos y controla procesos financieros con tecnología NFC desde una sola plataforma."
+>
+  <!-- Hero -->
+  <section class="colegios-hero relative overflow-hidden bg-white min-h-[90vh] flex items-center">
+    <div class="absolute inset-0 z-[1] pointer-events-none" aria-hidden="true">
+      <div
+        class="absolute inset-0 opacity-40"
+        style="background-image: linear-gradient(rgba(32,57,111,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(32,57,111,0.035) 1px, transparent 1px); background-size: 80px 80px;"
+      ></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-6 py-32 md:py-40 flex flex-col md:flex-row items-center gap-12 w-full">
+      <div class="flex-1 text-center md:text-left">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-neutral-200 bg-white shadow-sm mb-6">
+          <i class="fas fa-graduation-cap text-tertiary text-sm"></i>
+          <span class="text-sm font-medium text-neutral-500">Solución para colegios</span>
+        </div>
+        <h1 class="text-3xl md:text-5xl lg:text-[3.5rem] font-bold text-neutral-900 leading-tight tracking-tight">
+          Transforma la gestión financiera y operativa <span class="text-tertiary">de tu colegio</span>
+        </h1>
+        <p class="mt-6 text-neutral-500 text-base md:text-lg max-w-xl leading-relaxed">
+          Centraliza los pagos y controla todos los procesos financieros desde una sola plataforma moderna y segura.
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+          <a
+            href="/contacto"
+            class="inline-flex items-center justify-center gap-2 bg-tertiary text-neutral-900 px-8 py-3.5 rounded-full shadow-lg shadow-tertiary/20 text-base font-semibold transition-all duration-300 hover:shadow-xl"
+          >
+            Agendar una reunión
+          </a>
+        </div>
+      </div>
+      <div class="flex-1 flex items-center justify-center">
+        <div class="w-full max-w-md aspect-[4/3] bg-neutral-100 rounded-2xl border border-neutral-200 flex items-center justify-center">
+          <span class="text-neutral-400 text-sm">Imagen próximamente</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pain Points -->
+  <section class="bg-white py-20 md:py-28">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      <h2 class="text-2xl md:text-4xl font-bold text-neutral-800 mb-16">
+        ¿Tu colegio aún gestiona pagos <span class="text-tertiary">de forma manual?</span>
+      </h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+        {[
+          { icon: "fas fa-users", label: "Largas filas" },
+          { icon: "fas fa-money-bill-wave", label: "Uso de efectivo" },
+          { icon: "fas fa-search-minus", label: "Falta de trazabilidad" },
+          { icon: "fas fa-hourglass-half", label: "Procesos lentos" },
+        ].map((item) => (
+          <div class="flex flex-col items-center gap-4">
+            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center">
+              <i class={`${item.icon} text-2xl md:text-3xl text-neutral-400`}></i>
+            </div>
+            <span class="text-sm md:text-base font-medium text-neutral-600">{item.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section class="bg-neutral-50 border-y border-neutral-200 py-20 md:py-28">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-2xl md:text-4xl font-bold text-neutral-800 text-center mb-16">
+        Una solución integral <span class="text-tertiary">para tu institución</span>
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {[
+          {
+            icon: "fa-brands fa-nfc-symbol",
+            title: "Pulsera NFC",
+            description: "Agiliza pagos y accesos en tu colegio con pulseras inteligentes NFC.",
+          },
+          {
+            icon: "fas fa-mobile-alt",
+            title: "App para padres",
+            description: "Facilita pagos y comunicación con los padres a través de nuestra app móvil.",
+          },
+          {
+            icon: "fas fa-desktop",
+            title: "Panel administrativo",
+            description: "Administra y controla los pagos y procesos financieros de manera centralizada.",
+          },
+        ].map((item) => (
+          <div class="bg-white rounded-2xl border border-neutral-200 p-6 md:p-8 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-full aspect-[4/3] bg-neutral-100 rounded-xl mb-6 flex items-center justify-center border border-neutral-200">
+              <i class={`${item.icon} text-4xl text-neutral-300`}></i>
+            </div>
+            <h3 class="text-lg md:text-xl font-semibold text-neutral-800 mb-2">{item.title}</h3>
+            <p class="text-sm md:text-base text-neutral-500 leading-relaxed">{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section class="bg-white py-20 md:py-28">
+    <div class="max-w-5xl mx-auto px-6">
+      <h2 class="text-2xl md:text-4xl font-bold text-neutral-800 text-center mb-16">
+        Beneficios para <span class="text-tertiary">tu institución</span>
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+        {[
+          {
+            icon: "fas fa-wallet",
+            title: "Reducción de Efectivo",
+            description: "Reduce el uso de efectivo en el colegio.",
+            color: "tertiary",
+          },
+          {
+            icon: "fas fa-check-circle",
+            title: "Mayor Control",
+            description: "Mejora el control y la gestión interna.",
+            color: "primary",
+          },
+          {
+            icon: "fas fa-chart-bar",
+            title: "Información en Tiempo Real",
+            description: "Accede a datos actualizados al instante.",
+            color: "tertiary",
+          },
+          {
+            icon: "fas fa-lock",
+            title: "Seguridad y Trazabilidad",
+            description: "Operaciones seguras y rastreables.",
+            color: "primary",
+          },
+        ].map((item) => (
+          <div class="flex items-start gap-5 p-6 rounded-2xl bg-neutral-50 border border-neutral-200">
+            <div class={`w-14 h-14 rounded-xl flex items-center justify-center shrink-0 ${item.color === 'tertiary' ? 'bg-tertiary/10' : 'bg-primary/10'}`}>
+              <i class={`${item.icon} text-xl ${item.color === 'tertiary' ? 'text-tertiary' : 'text-primary'}`}></i>
+            </div>
+            <div>
+              <h3 class="font-semibold text-lg text-neutral-800 mb-1">{item.title}</h3>
+              <p class="text-sm text-neutral-500">{item.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="bg-neutral-50 border-y border-neutral-200 py-20 md:py-28">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      <h2 class="text-2xl md:text-4xl font-bold text-neutral-800 mb-4">
+        Cómo <span class="text-tertiary">funciona</span>
+      </h2>
+      <p class="text-neutral-500 text-base md:text-lg mb-16 max-w-xl mx-auto">
+        Así es como JoiSolutions puede facilitarte la gestión.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        {[
+          {
+            step: "1",
+            icon: "fa-brands fa-nfc-symbol",
+            title: "Activación de pulsera o credencial",
+            description: "Estudiantes reciben una pulsera o credencial con NFC.",
+          },
+          {
+            step: "2",
+            icon: "fas fa-mobile-alt",
+            title: "Padres recargan desde el app",
+            description: "Los padres recargan la pulsera o credencial desde la app.",
+          },
+          {
+            step: "3",
+            icon: "fas fa-desktop",
+            title: "Colegio monitorea desde panel administrativo",
+            description: "El colegio gestiona y monitorea todo desde un panel centralizado.",
+          },
+        ].map((item) => (
+          <div class="flex flex-col items-center">
+            <div class="w-full aspect-[4/3] bg-white rounded-xl mb-6 flex items-center justify-center border border-neutral-200">
+              <i class={`${item.icon} text-4xl text-neutral-300`}></i>
+            </div>
+            <div class="flex items-center gap-2 mb-3">
+              <span class="w-7 h-7 rounded-full bg-tertiary text-white text-sm font-bold flex items-center justify-center">{item.step}</span>
+              <h3 class="font-semibold text-base md:text-lg text-neutral-800">{item.title}</h3>
+            </div>
+            <p class="text-sm text-neutral-500 max-w-xs">{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <CTA
+    title="Moderniza la gestión de tu colegio hoy"
+    description="Centraliza pagos, mejora la seguridad y simplifica la operación financiera de tu institución con JoiSolutions."
+  />
+</Layout>
