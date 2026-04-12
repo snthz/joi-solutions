@@ -1,6 +1,17 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import CTA from "../components/CTA.astro";
+import { Image } from "astro:assets";
+import HeroPrincipal from "../assets/images/colegios-principal.svg";
+import PulseraNFC from "../assets/images/pulsera-nfc.svg";
+import AppPadres from "../assets/images/app-para-padres.svg";
+import PanelAdmin from "../assets/images/panel-admin.svg";
+import LargasFilas from "../assets/images/largas-filas-icon.svg";
+import UsoEfectivo from "../assets/images/uso-de-efectivo-icon.svg";
+import FaltaTrazabilidad from "../assets/images/falta-de-trazabilidad-icon.svg";
+import ProcesosLentos from "../assets/images/procesos-lentos-icon.svg";
+import ActivacionPulsera from "../assets/images/activacion-pulsera.svg";
+
 ---
 
 <Layout
@@ -37,9 +48,14 @@ import CTA from "../components/CTA.astro";
         </div>
       </div>
       <div class="flex-1 flex items-center justify-center">
-        <div class="w-full max-w-md aspect-[4/3] bg-neutral-100 rounded-2xl border border-neutral-200 flex items-center justify-center">
+        <!-- <div class="w-full max-w-md aspect-[4/3] bg-neutral-100 rounded-2xl border border-neutral-200 flex items-center justify-center">
           <span class="text-neutral-400 text-sm">Imagen próximamente</span>
-        </div>
+        </div> -->
+        <Image
+          src={HeroPrincipal}
+          alt="Ilustración de gestión de colegios"
+          class="w-full rounded-2xl "
+        />
       </div>
     </div>
   </section>
@@ -52,15 +68,19 @@ import CTA from "../components/CTA.astro";
       </h2>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
         {[
-          { icon: "fas fa-users", label: "Largas filas" },
-          { icon: "fas fa-money-bill-wave", label: "Uso de efectivo" },
-          { icon: "fas fa-search-minus", label: "Falta de trazabilidad" },
-          { icon: "fas fa-hourglass-half", label: "Procesos lentos" },
+          { icon: LargasFilas, label: "Largas filas" },
+          { icon: UsoEfectivo, label: "Uso de efectivo" },
+          { icon: FaltaTrazabilidad, label: "Falta de trazabilidad" },
+          { icon: ProcesosLentos, label: "Procesos lentos" },
         ].map((item) => (
           <div class="flex flex-col items-center gap-4">
-            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center">
-              <i class={`${item.icon} text-2xl md:text-3xl text-neutral-400`}></i>
-            </div>
+  
+              <Image
+                src={item.icon}
+                alt={item.label}
+                class="size-12 md:size-20"
+              />
+            
             <span class="text-sm md:text-base font-medium text-neutral-600">{item.label}</span>
           </div>
         ))}
@@ -71,33 +91,47 @@ import CTA from "../components/CTA.astro";
   <!-- Solution -->
   <section class="bg-neutral-50 border-y border-neutral-200 py-20 md:py-28">
     <div class="max-w-6xl mx-auto px-6">
-      <h2 class="text-2xl md:text-4xl font-bold text-neutral-800 text-center mb-16">
+      <h2 class="text-2xl md:text-4xl font-bold text-neutral-800 text-center mb-4">
         Una solución integral <span class="text-tertiary">para tu institución</span>
       </h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <p class="text-center text-neutral-500 text-base md:text-lg mb-16 max-w-xl mx-auto">
+        Tres herramientas diseñadas para trabajar juntas y simplificar la gestión de tu institución.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         {[
           {
-            icon: "fa-brands fa-nfc-symbol",
+            icon: PulseraNFC,
             title: "Pulsera NFC",
             description: "Agiliza pagos y accesos en tu colegio con pulseras inteligentes NFC.",
+            tag: "Hardware",
           },
           {
-            icon: "fas fa-mobile-alt",
+            icon: AppPadres,
             title: "App para padres",
             description: "Facilita pagos y comunicación con los padres a través de nuestra app móvil.",
+            tag: "Mobile",
           },
           {
-            icon: "fas fa-desktop",
+            icon: PanelAdmin,
             title: "Panel administrativo",
             description: "Administra y controla los pagos y procesos financieros de manera centralizada.",
+            tag: "Web",
           },
         ].map((item) => (
-          <div class="bg-white rounded-2xl border border-neutral-200 p-6 md:p-8 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-shadow">
-            <div class="w-full aspect-[4/3] bg-neutral-100 rounded-xl mb-6 flex items-center justify-center border border-neutral-200">
-              <i class={`${item.icon} text-4xl text-neutral-300`}></i>
+          <div class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-neutral-100 flex flex-col">
+            <div class="bg-[#0D1B6E] flex items-center justify-center  overflow-hidden relative">
+              <div class="absolute inset-0 bg-linear-to-br from-[#1a2fa0]/40 to-transparent"></div>
+              <Image
+                src={item.icon}
+                alt={item.title}
+                class="w-full  relative z-10 group-hover:scale-105 transition-transform duration-300"
+              />
             </div>
-            <h3 class="text-lg md:text-xl font-semibold text-neutral-800 mb-2">{item.title}</h3>
-            <p class="text-sm md:text-base text-neutral-500 leading-relaxed">{item.description}</p>
+            <div class="p-6 flex flex-col flex-1">
+              <span class="text-xs font-semibold uppercase tracking-wider text-tertiary mb-3">{item.tag}</span>
+              <h3 class="text-lg md:text-xl font-bold text-neutral-800 mb-2">{item.title}</h3>
+              <p class="text-sm md:text-base text-neutral-500 leading-relaxed">{item.description}</p>
+            </div>
           </div>
         ))}
       </div>
@@ -113,33 +147,37 @@ import CTA from "../components/CTA.astro";
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
         {[
           {
-            icon: "fas fa-wallet",
+            icon: UsoEfectivo,
             title: "Reducción de Efectivo",
             description: "Reduce el uso de efectivo en el colegio.",
             color: "tertiary",
           },
           {
-            icon: "fas fa-check-circle",
+            icon: LargasFilas,
             title: "Mayor Control",
             description: "Mejora el control y la gestión interna.",
             color: "primary",
           },
           {
-            icon: "fas fa-chart-bar",
+            icon: ProcesosLentos,
             title: "Información en Tiempo Real",
             description: "Accede a datos actualizados al instante.",
             color: "tertiary",
           },
           {
-            icon: "fas fa-lock",
+            icon: FaltaTrazabilidad,
             title: "Seguridad y Trazabilidad",
             description: "Operaciones seguras y rastreables.",
             color: "primary",
           },
         ].map((item) => (
           <div class="flex items-start gap-5 p-6 rounded-2xl bg-neutral-50 border border-neutral-200">
-            <div class={`w-14 h-14 rounded-xl flex items-center justify-center shrink-0 ${item.color === 'tertiary' ? 'bg-tertiary/10' : 'bg-primary/10'}`}>
-              <i class={`${item.icon} text-xl ${item.color === 'tertiary' ? 'text-tertiary' : 'text-primary'}`}></i>
+            <div class={` rounded-full  text-white flex items-center justify-center`}>
+              <Image
+                src={item.icon}
+                alt={item.title}
+                class="size-10 md:size-14"
+              />
             </div>
             <div>
               <h3 class="font-semibold text-lg text-neutral-800 mb-1">{item.title}</h3>
@@ -160,35 +198,49 @@ import CTA from "../components/CTA.astro";
       <p class="text-neutral-500 text-base md:text-lg mb-16 max-w-xl mx-auto">
         Así es como JoiSolutions puede facilitarte la gestión.
       </p>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-4">
         {[
           {
             step: "1",
-            icon: "fa-brands fa-nfc-symbol",
+            icon: ActivacionPulsera,
             title: "Activación de pulsera o credencial",
             description: "Estudiantes reciben una pulsera o credencial con NFC.",
           },
           {
             step: "2",
-            icon: "fas fa-mobile-alt",
+            icon: AppPadres,
             title: "Padres recargan desde el app",
             description: "Los padres recargan la pulsera o credencial desde la app.",
           },
           {
             step: "3",
-            icon: "fas fa-desktop",
+            icon: PanelAdmin,
             title: "Colegio monitorea desde panel administrativo",
             description: "El colegio gestiona y monitorea todo desde un panel centralizado.",
           },
-        ].map((item) => (
-          <div class="flex flex-col items-center">
-            <div class="w-full aspect-[4/3] bg-white rounded-xl mb-6 flex items-center justify-center border border-neutral-200">
-              <i class={`${item.icon} text-4xl text-neutral-300`}></i>
+        ].map((item, index) => (
+          <div class="relative flex flex-col items-center">
+            {/* Connector line between steps */}
+            {index < 2 && (
+              <div class="hidden md:block absolute top-[72px] left-[calc(50%+80px)] right-[-calc(50%-80px)] h-px w-[calc(100%-160px)] border-t-2 border-dashed border-neutral-300 z-0" style="left: calc(50% + 80px); width: calc(100% - 80px);" />
+            )}
+
+            {/* Image card */}
+            <div class="bg-[#0D1B6E] rounded-2xl overflow-hidden w-full mb-6 relative">
+              <div class="absolute inset-0 bg-linear-to-br from-[#1a2fa0]/40 to-transparent"></div>
+              <Image
+                src={item.icon}
+                alt={item.title}
+                class="w-full relative z-10"
+              />
             </div>
-            <div class="flex items-center gap-2 mb-3">
-              <span class="w-7 h-7 rounded-full bg-tertiary text-white text-sm font-bold flex items-center justify-center">{item.step}</span>
-              <h3 class="font-semibold text-base md:text-lg text-neutral-800">{item.title}</h3>
+
+            {/* Step badge */}
+            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-tertiary text-white text-base font-bold mb-3 shrink-0 shadow-md">
+              {item.step}
             </div>
+
+            <h3 class="font-bold text-base md:text-lg text-neutral-800 mb-2">{item.title}</h3>
             <p class="text-sm text-neutral-500 max-w-xs">{item.description}</p>
           </div>
         ))}
