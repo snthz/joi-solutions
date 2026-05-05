@@ -1,133 +1,87 @@
 ---
-const timelineSteps = [
+const valueCards = [
   {
-    title: "Seguridad financiera",
-    icon: "fas fa-shield-alt",
+    title: "Seguridad Financiera",
     description:
-      "Protegemos transacciones de usuarios y comercios con tecnología segura y transparente.",
-    date: "01",
-    highlight: true,
+      "Protegemos las transacciones con tecnología segura y transparente para usuarios y comercios.",
+    icon: "fas fa-shield-alt",
   },
   {
     title: "Cashless",
+    description:
+      "Reducimos la fricción operativa y facilitamos experiencias digitales más ordenadas y seguras.",
     icon: "fas fa-money-bill-wave",
-    description:
-      "Facilitamos pagos digitales para reducir el uso de efectivo y mejorar el control.",
-    date: "02",
-    highlight: false,
-  },
-  {
-    title: "Cobros rápidos",
-    icon: "fas fa-stopwatch",
-    description:
-      "Optimiza los tiempos de cobro en puntos de venta físicos con soluciones ágiles.",
-    date: "03",
-    highlight: false,
   },
   {
     title: "Visibilidad total",
-    icon: "fas fa-chart-line",
     description:
-      "Monitorea cada pago con datos en tiempo real para tomar decisiones informadas.",
-    date: "04",
-    highlight: true,
+      "Accede a información clara y en tiempo real para tomar mejores decisiones.",
+    icon: "fas fa-chart-line",
   },
 ];
 ---
 
-<!-- Header -->
-<div class="pt-24 pb-4 px-4 md:px-6 text-center av-header" data-anim>
-  <span class="av-label inline-block text-xs font-semibold tracking-[0.2em] uppercase text-neutral-400 mb-3">Valor agregado</span>
-  <h2 class="av-heading text-3xl md:text-[2.75rem] font-bold text-neutral-800 leading-tight">
-    Nuestro <span class="text-tertiary">valor agregado</span>
-  </h2>
-  <p class="av-subheading mt-4 text-base md:text-lg text-neutral-500 max-w-[50ch] mx-auto">
-    Conoce cómo nuestros productos transforman la manera de realizar pagos.
-  </p>
-</div>
-
-<!-- Timeline -->
-<section class="relative w-full max-w-4xl mx-auto px-6 py-16 md:py-24 overflow-hidden">
-  <!-- Central line -->
-  <div class="absolute left-1/2 top-0 -translate-x-1/2 hidden sm:block w-px h-full z-0">
-    <div class="absolute inset-0 bg-neutral-200"></div>
-    <div id="tl-progress" class="absolute left-0 top-0 w-full h-0 bg-tertiary rounded-full transition-[height] duration-100"></div>
+<section class="av-section relative w-full py-20 md:py-28 px-6 md:px-10 overflow-hidden bg-gradient-to-b from-[#f7f8fb] via-[#eef0f6] to-[#f7f8fb]">
+  <!-- Background pattern + ambient layers -->
+  <div class="absolute inset-0 -z-10 pointer-events-none" aria-hidden="true">
+    <!-- Dot grid pattern -->
+    <div
+      class="absolute inset-0 opacity-[0.5]"
+      style="background-image: radial-gradient(rgba(32,57,111,0.12) 1px, transparent 1px); background-size: 22px 22px;"
+    ></div>
+    <!-- Soft glow orbs -->
+    <div class="absolute -top-32 -left-24 w-[480px] h-[480px] rounded-full opacity-70" style="background: radial-gradient(circle, rgba(253,198,50,0.14) 0%, transparent 70%);"></div>
+    <div class="absolute -bottom-32 -right-24 w-[520px] h-[520px] rounded-full opacity-70" style="background: radial-gradient(circle, rgba(32,57,111,0.10) 0%, transparent 70%);"></div>
+    <!-- Top + bottom fade for soft transition into adjacent sections -->
+    <div class="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white to-transparent"></div>
+    <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent"></div>
   </div>
-  <!-- Mobile left line -->
-  <div class="absolute left-[2.625rem] top-0 sm:hidden w-px h-full bg-neutral-200 z-0"></div>
 
-  <div class="relative z-10 flex flex-col gap-0">
-    {timelineSteps.map((step, index) => {
-      const isLeft = index % 2 === 0;
-      return (
-        <div class="tl-item relative" data-anim data-index={index}>
-          {/* Date badge - centered on line */}
-          <div class={`
-            tl-date-badge
-            hidden sm:flex items-center justify-center
-            absolute left-1/2 -translate-x-1/2 top-0 z-20
-            px-4 py-1 rounded-full text-sm font-semibold tracking-wide
-            border shadow-sm
-            ${step.highlight
-              ? 'bg-tertiary text-white border-tertiary/60'
-              : 'bg-neutral-100 text-neutral-500 border-neutral-200'
-            }
-          `}>
-            {step.date}
-          </div>
-          {/* Mobile date badge */}
-          <div class={`
-            tl-date-badge
-            sm:hidden flex items-center justify-center
-            absolute left-[2.625rem] -translate-x-1/2 top-0 z-20
-            w-9 h-9 rounded-full text-xs font-bold
-            ${step.highlight
-              ? 'bg-tertiary text-white'
-              : 'bg-neutral-100 text-neutral-500 border border-neutral-200'
-            }
-          `}>
-            {step.date}
-          </div>
+  <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+    <!-- Left column: heading -->
+    <div class="av-left text-center lg:text-left">
+      <span class="av-label inline-block text-xs font-semibold tracking-[0.2em] uppercase text-tertiary mb-5">
+        Valor agregado
+      </span>
+      <h2 class="av-heading text-4xl md:text-5xl lg:text-[3.25rem] font-bold text-neutral-900 leading-[1.1] tracking-tight">
+        ¿Por qué elegir <span class="text-tertiary">JoiSolutions</span>?
+      </h2>
+      <p class="av-subheading mt-6 text-base md:text-lg text-neutral-600 leading-relaxed max-w-md mx-auto lg:mx-0">
+        Tecnología que simplifica y potencia tu crecimiento.
+      </p>
+    </div>
 
-          {/* Vertical segment from badge (desktop only) */}
-          <div class="hidden sm:block absolute left-1/2 -translate-x-1/2 top-8 w-px h-8 bg-neutral-200 z-10"></div>
-
-          {/* Content card */}
-          <div class={`
-            tl-card
-            pt-16 sm:pt-20 pb-12
-            sm:w-[calc(50%-2rem)]
-            ${isLeft ? 'sm:mr-auto sm:pr-0 sm:text-right' : 'sm:ml-auto sm:pl-0 sm:text-left'}
-            pl-16 sm:pl-0
-          `}>
-            <div class="flex items-center gap-3 mb-3 sm:justify-start" style={isLeft ? '' : ''}>
-              <div class={`
-                w-10 h-10 rounded-xl flex items-center justify-center shrink-0
-                ${step.highlight ? 'bg-tertiary/10 text-tertiary' : 'bg-neutral-100 text-neutral-400'}
-              `}>
-                <i class={`${step.icon} text-lg`}></i>
-              </div>
-              <h4 class="font-semibold text-lg md:text-xl text-neutral-800 tracking-tight uppercase">
-                {step.title}
-              </h4>
+    <!-- Right column: stacked cards -->
+    <div class="av-right flex flex-col gap-5">
+      {valueCards.map((card, index) => (
+        <article class="av-card group relative bg-white/90 backdrop-blur-sm border border-neutral-200/70 rounded-2xl p-6 md:p-7 shadow-[0_2px_6px_rgba(32,57,111,0.04)] transition-all duration-300 hover:border-tertiary/40 hover:shadow-[0_10px_28px_rgba(32,57,111,0.08)] hover:-translate-y-0.5" data-index={index}>
+          <div class="flex items-start gap-4">
+            <div class="shrink-0 w-11 h-11 rounded-xl bg-tertiary/10 flex items-center justify-center text-tertiary group-hover:bg-tertiary group-hover:text-white transition-colors duration-300">
+              <i class={`${card.icon} text-base`}></i>
             </div>
-            <p class="text-sm md:text-base text-neutral-500 leading-relaxed max-w-sm sm:text-left">
-              {step.description}
-            </p>
+            <div class="flex-1 min-w-0">
+              <h3 class="text-lg md:text-xl font-bold text-neutral-900 mb-1.5 tracking-tight">
+                {card.title}
+              </h3>
+              <p class="text-sm md:text-base text-neutral-700 leading-relaxed">
+                {card.description}
+              </p>
+            </div>
           </div>
-        </div>
-      );
-    })}
+          <!-- Accent corner -->
+          <div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-tertiary/0 rounded-tl-2xl group-hover:border-tertiary/60 transition-all duration-300"></div>
+        </article>
+      ))}
+    </div>
   </div>
 </section>
 
 <style>
-  .tl-item { opacity: 0; }
-  .tl-date-badge { opacity: 0; transform: scale(0.8); }
-  .av-heading, .av-subheading, .av-label { opacity: 0; }
+  .av-label, .av-heading, .av-subheading { opacity: 0; }
+  .av-card { opacity: 0; }
 
   @media (prefers-reduced-motion: reduce) {
-    .tl-item, .tl-date-badge, .av-heading, .av-subheading, .av-label {
+    .av-label, .av-heading, .av-subheading, .av-card {
       opacity: 1 !important;
       transform: none !important;
     }
@@ -141,83 +95,29 @@ const timelineSteps = [
 
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // --- Header entrance ---
   const avLabel = document.querySelector('.av-label') as HTMLElement;
   const avHeading = document.querySelector('.av-heading') as HTMLElement;
   const avSubheading = document.querySelector('.av-subheading') as HTMLElement;
+  const avCards = document.querySelectorAll('.av-card') as NodeListOf<HTMLElement>;
 
   if (!prefersReduced && avHeading) {
-    const headerTl = gsap.timeline({
-      scrollTrigger: { trigger: avHeading, start: 'top 85%', toggleActions: 'play none none none' }
+    const tl = gsap.timeline({
+      scrollTrigger: { trigger: '.av-section', start: 'top 80%', toggleActions: 'play none none none' }
     });
-    headerTl
-      .fromTo(avLabel, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' })
-      .fromTo(avHeading, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.2')
-      .fromTo(avSubheading, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3');
+
+    tl.fromTo(avLabel,
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' })
+      .fromTo(avHeading,
+        { opacity: 0, y: 24, filter: 'blur(4px)' },
+        { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.7, ease: 'power3.out' }, '-=0.25')
+      .fromTo(avSubheading,
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out' }, '-=0.4')
+      .fromTo(avCards,
+        { opacity: 0, x: 40, filter: 'blur(4px)' },
+        { opacity: 1, x: 0, filter: 'blur(0px)', duration: 0.6, ease: 'power3.out', stagger: 0.12 }, '-=0.35');
   } else {
-    gsap.set([avLabel, avHeading, avSubheading], { opacity: 1, y: 0 });
-  }
-
-  // --- Timeline items: staggered slide-in from alternating sides ---
-  const items = document.querySelectorAll('.tl-item') as NodeListOf<HTMLElement>;
-  if (!prefersReduced) {
-    items.forEach((el, i) => {
-      const isLeft = i % 2 === 0;
-      const card = el.querySelector('.tl-card') as HTMLElement;
-      const badge = el.querySelector('.tl-date-badge') as HTMLElement;
-      const badges = el.querySelectorAll('.tl-date-badge');
-
-      // Item fade in
-      gsap.fromTo(el,
-        { opacity: 0 },
-        {
-          opacity: 1, duration: 0.5, ease: 'power2.out',
-          scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
-        }
-      );
-
-      // Card slides from its side
-      if (card) {
-        const xFrom = isLeft ? -40 : 40;
-        gsap.fromTo(card,
-          { opacity: 0, x: xFrom },
-          {
-            opacity: 1, x: 0, duration: 0.7, ease: 'power3.out',
-            scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
-          }
-        );
-      }
-
-      // Date badges pop in
-      badges.forEach((b) => {
-        gsap.fromTo(b,
-          { opacity: 0, scale: 0.7 },
-          {
-            opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(2)', delay: 0.15,
-            scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
-          }
-        );
-      });
-    });
-  } else {
-    items.forEach((el) => { el.style.opacity = '1'; });
-    document.querySelectorAll('.tl-date-badge').forEach((b) => {
-      (b as HTMLElement).style.opacity = '1';
-      (b as HTMLElement).style.transform = 'none';
-    });
-  }
-
-  // --- Progress line draw (desktop only) ---
-  const progressEl = document.getElementById('tl-progress');
-  if (progressEl && !prefersReduced && window.matchMedia('(min-width: 640px)').matches) {
-    const section = progressEl.closest('section');
-    ScrollTrigger.create({
-      trigger: section,
-      start: 'top 20%',
-      end: 'bottom 80%',
-      onUpdate: (self) => {
-        progressEl.style.height = `${Math.max(0, Math.min(1, self.progress)) * 100}%`;
-      }
-    });
+    gsap.set([avLabel, avHeading, avSubheading, ...avCards], { opacity: 1, y: 0, x: 0, filter: 'blur(0px)' });
   }
 </script>
